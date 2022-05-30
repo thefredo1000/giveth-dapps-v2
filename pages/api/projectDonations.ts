@@ -38,7 +38,7 @@ const handler = async (req: any, res: any) => {
 
 	const orderBy: string = Object.values(EOrderBy).includes(query.orderBy)
 		? query.orderBy
-		: '';
+		: 'CreationDate';
 
 	const direction: string = query.direction
 		? req.query.direction
