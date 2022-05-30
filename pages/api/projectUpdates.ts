@@ -43,7 +43,7 @@ const handler = async (req: any, res: any) => {
 
 	try {
 		res.status(200).json({
-			projects: await fetchProjectUpdates(variables),
+			projectUpdates: await fetchProjectUpdates(variables),
 		});
 	} catch (error) {
 		res.status(500).json({ error });

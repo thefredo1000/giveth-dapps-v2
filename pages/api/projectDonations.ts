@@ -60,7 +60,7 @@ const handler = async (req: any, res: any) => {
 
 	try {
 		res.status(200).json({
-			projects: await fetchProjectDonations(variables),
+			projectDonations: await fetchProjectDonations(variables),
 		});
 	} catch (error) {
 		res.status(500).json({ error });

@@ -19,7 +19,7 @@ const handler = async (req: any, res: any) => {
 	const { query } = req;
 	const { address } = query;
 	try {
-		res.status(200).json({ projects: await fetchUser(address) });
+		res.status(200).json({ user: await fetchUser(address) });
 	} catch (error) {
 		res.status(500).json({ error });
 	}

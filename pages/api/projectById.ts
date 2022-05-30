@@ -18,7 +18,7 @@ const handler = async (req: any, res: any) => {
 	const { query } = req;
 	const { id } = query;
 	try {
-		res.status(200).json({ projects: await fetchProject(parseInt(id)) });
+		res.status(200).json({ project: await fetchProject(parseInt(id)) });
 	} catch (error) {
 		res.status(500).json({ error });
 	}
