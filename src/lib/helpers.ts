@@ -23,6 +23,8 @@ import config from '@/configuration';
 
 declare let window: any;
 
+export const fullPath = (path: string) => `${config.FRONTEND_LINK}${path}`;
+
 export const formatBalance = (balance?: string | number) => {
 	return parseFloat(String(balance || 0)).toLocaleString('en-US', {
 		maximumFractionDigits: 6,
@@ -121,6 +123,7 @@ export const compareAddresses = (
 	add1: string | undefined | null,
 	add2: string | undefined | null,
 ) => {
+	if (!add1 || !add2) return false;
 	return add1?.toLowerCase() === add2?.toLowerCase();
 };
 
@@ -203,9 +206,8 @@ export async function sendTransaction(
 			txCallbacks.onReceipt(tx.hash);
 		}
 
-		console.log('stTxn ---> : ', { tx, receipt });
+		console.log('Tx ---> : ', { tx, receipt });
 	} catch (error: any) {
-		console.log('Error sending transaction: ', { error });
 		if (error.replacement && !error.cancelled) {
 			// Speed up the process by replacing the transaction
 			txCallbacks.onReceipt(error.replacement.hash);

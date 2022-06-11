@@ -49,7 +49,6 @@ export interface SimplePoolStakingConfig extends BasicStakingConfig {
 	provideLiquidityLink?: string;
 	unit: string;
 	active: boolean;
-	network?: number;
 }
 
 export interface UniswapV3PoolStakingConfig extends SimplePoolStakingConfig {
@@ -98,6 +97,7 @@ export interface RegenStreamConfig {
 
 export interface BasicNetworkConfig {
 	TOKEN_ADDRESS: string;
+	tokenAddressOnUniswapV2: string; // For price purpose in test env, on production this must have the same value of `TOKEN_ADDRESS`
 	TOKEN_DISTRO_ADDRESS: string;
 	GIV: BasicStakingConfig;
 	nodeUrl: string;
@@ -118,7 +118,7 @@ export interface BasicNetworkConfig {
 		| BalancerPoolStakingConfig
 		| UniswapV3PoolStakingConfig
 	>;
-	uniswapV2Subgraph?: string;
+	uniswapV2Subgraph: string;
 
 	regenStreams: RegenStreamConfig[];
 	regenFarms: RegenPoolStakingConfig[];
@@ -141,6 +141,7 @@ export interface EnvConfig {
 	XDAI_CONFIG: XDaiNetworkConfig;
 	GARDEN_LINK: string;
 	BACKEND_LINK: string;
+	FRONTEND_LINK: string;
 	MICROSERVICES: MicroservicesConfig;
 }
 

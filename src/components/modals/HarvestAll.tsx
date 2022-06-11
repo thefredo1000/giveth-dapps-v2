@@ -58,11 +58,11 @@ import { claimReward, fetchAirDropClaimData } from '@/lib/claim';
 import config from '@/configuration';
 import { IconWithTooltip } from '../IconWithToolTip';
 import { AmountBoxWithPrice } from '@/components/AmountBoxWithPrice';
-import { usePrice } from '@/context/price.context';
 import { getPoolIconWithName } from '../cards/BaseStakingCard';
 import { IModal } from '@/types/common';
 import { useAppSelector } from '@/features/hooks';
 import { LiquidityPosition } from '@/types/nfts';
+import { Flex } from '../styled-components/Flex';
 import type { TokenDistroHelper } from '@/lib/contractHelper/TokenDistroHelper';
 
 interface IHarvestAllModalProps extends IModal {
@@ -109,7 +109,11 @@ export const HarvestAllModal: FC<IHarvestAllModalProps> = ({
 	const [state, setState] = useState<HarvestStates>(HarvestStates.HARVEST);
 	const tokenSymbol = regenStreamConfig?.rewardTokenSymbol || 'GIV';
 	const { balances } = useAppSelector(state => state.subgraph.currentValues);
-	const { givPrice, getTokenPrice } = usePrice();
+	const {
+		mainnetThirdPartyTokensPrice,
+		xDaiThirdPartyTokensPrice,
+		givPrice,
+	} = useAppSelector(state => state.price);
 	const { account, library } = useWeb3React();
 	const [txHash, setTxHash] = useState('');
 	//GIVdrop TODO: Should we show Givdrop in new  design?
@@ -138,10 +142,15 @@ export const HarvestAllModal: FC<IHarvestAllModalProps> = ({
 			: BN(balances.givbackLiquidPart);
 	}, [regenStreamConfig, balances.givbackLiquidPart]);
 	const tokenPrice = useMemo(() => {
-		return regenStreamConfig
-			? getTokenPrice(regenStreamConfig.tokenAddressOnUniswapV2, network)
+		const currentPrice =
+			network === config.MAINNET_NETWORK_NUMBER
+				? mainnetThirdPartyTokensPrice
+				: xDaiThirdPartyTokensPrice;
+		const price = regenStreamConfig
+			? currentPrice[regenStreamConfig.tokenAddressOnUniswapV2]
 			: givPrice;
-	}, [getTokenPrice, givPrice, network, regenStreamConfig]);
+		return new BigNumber(price);
+	}, [givPrice, network, regenStreamConfig]);
 
 	useEffect(() => {
 		if (!tokenDistroHelper) return;
@@ -290,7 +299,7 @@ export const HarvestAllModal: FC<IHarvestAllModalProps> = ({
 	const modalTitle = regenStreamConfig ? 'RegenFarm Rewards' : title;
 
 	const calcUSD = (amount: string) => {
-		const price = tokenPrice || givPrice;
+		const price = tokenPrice || new BigNumber(givPrice);
 		return price.isNaN() ? '0' : price.times(amount).toFixed(2);
 	};
 
@@ -410,10 +419,9 @@ export const HarvestAllModal: FC<IHarvestAllModalProps> = ({
 										{givBackStream != 0 && (
 											<>
 												<GIVbackStreamDesc>
-													Recieved from GIVbacks
+													[ Recieved from GIVbacks
 												</GIVbackStreamDesc>
 												<BreakdownRate>
-													+
 													{formatWeiHelper(
 														givBackStream,
 														config.TOKEN_PRECISION,
@@ -424,13 +432,18 @@ export const HarvestAllModal: FC<IHarvestAllModalProps> = ({
 													{tokenSymbol}/week
 													<IconWithTooltip
 														icon={
-															<IconHelp
-																size={16}
-																color={
-																	brandColors
-																		.deep[100]
-																}
-															/>
+															<Flex gap='4px'>
+																<IconHelp
+																	size={16}
+																	color={
+																		brandColors
+																			.deep[100]
+																	}
+																/>
+																<GIVbackStreamDesc>
+																	]
+																</GIVbackStreamDesc>
+															</Flex>
 														}
 														direction={'left'}
 													>

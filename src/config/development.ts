@@ -12,6 +12,7 @@ const BASE_ROUTE = 'https://serve.giveth.io';
 
 const config: EnvConfig = {
 	BACKEND_LINK: `${BASE_ROUTE}/graphql`,
+	FRONTEND_LINK: 'https://staging.giveth.io',
 	MICROSERVICES: {
 		authentication: `${BASE_ROUTE}/siweauthmicroservice/v1`,
 	},
@@ -39,6 +40,7 @@ const config: EnvConfig = {
 			'https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-kovan-staging',
 
 		TOKEN_ADDRESS: '0x29434A25abd94AE882aA883eea81585Aaa5b078D',
+		tokenAddressOnUniswapV2: '0x900db999074d9277c5da2a43f252d74366230da0',
 		WETH_TOKEN_ADDRESS: '0xd0a1e359811322d97991e03f863a0c30c2cf029c',
 		TOKEN_DISTRO_ADDRESS: '0x2C84Ab41b53C52959a794830fe296Fd717c33337',
 		GIV: {
@@ -124,7 +126,6 @@ const config: EnvConfig = {
 				LM_ADDRESS: '0x9d23d449af3e2c07a286688c85ff5d3d4c219d79',
 				type: StakingType.UNISWAPV2_CULT_ETH,
 				platform: StakingPlatform.UNISWAP,
-				network: 42,
 				title: 'CULT / ETH',
 				description: '50% CULT, 50% ETH',
 				provideLiquidityLink:
@@ -134,9 +135,7 @@ const config: EnvConfig = {
 				regenFarmType: RegenFarmType.CULT_ETH,
 				regenFarmIntro: {
 					title: 'CULT',
-					description: `The purpose of CULT is to empower those building and contributing to our decentralized future.
-					Our society makes it as difficult as possible to break away from societal, economic and other norms, and CULT serves to fund and support those who are working to take back our future. CULT is a reminder that the power in people is stronger than the people in power. CULT is the governance token of the Cult DAO. Every transaction of the CULT token allows you to contribute & fast-forward economic & societal change by contributing a 0.4% tax to the treasury. 
-					Fight from within until you get out, or change the system in doing so.`,
+					description: `The purpose of CULT is to empower those building and contributing to our decentralized future. Our society makes it as difficult as possible to break away from societal, economic and other norms, and CULT serves to fund and support those who are working to take back our future. CULT is a reminder that the power in people is stronger than the people in power.\n\n CULT is the governance token of the Cult DAO. Every transaction of the CULT token allows you to contribute & fast-forward economic & societal change by contributing a 0.4% tax to the treasury. Fight from within until you get out, or change the system in doing so.`,
 					link: 'https://cultdao.io/',
 				},
 				farmStartTimeMS: 1646306818206,
@@ -165,6 +164,7 @@ const config: EnvConfig = {
 			'https://api.thegraph.com/subgraphs/name/giveth/giveth-economy-xdai-staging',
 
 		TOKEN_ADDRESS: '0x83a8eea6427985C523a0c4d9d3E62C051B6580d3',
+		tokenAddressOnUniswapV2: '0x4f4F9b8D5B4d0Dc10506e5551B0513B61fD59e75',
 		MERKLE_ADDRESS: '0xc87403C70c9FBfb594d98d3B5E695BBE4C694188',
 		TOKEN_DISTRO_ADDRESS: '0x18a46865AAbAf416a970eaA8625CFC430D2364A1',
 
@@ -207,8 +207,8 @@ const config: EnvConfig = {
 				LM_ADDRESS: '0xe2c436E177C39A5D18AF6923Fc2Fc673f4729C05',
 				type: StakingType.HONEYSWAP_GIV_DAI,
 				platform: StakingPlatform.HONEYSWAP,
-				title: 'GIV / DAI',
-				description: '50% GIV, 50% DAI',
+				title: 'GIV / xDAI',
+				description: '50% GIV, 50% xDAI',
 				provideLiquidityLink:
 					'https://app.honeyswap.org/#/add/0x83a8eea6427985C523a0c4d9d3E62C051B6580d3/0x97c4dD5cE204b8c1F2f3B8fBfBBDC771d867d18c',
 				unit: 'LP',
@@ -238,7 +238,6 @@ const config: EnvConfig = {
 				LM_ADDRESS: '0x06851400866e065972ff21e1ECdE035b4772736d',
 				type: StakingType.HONEYSWAP_FOX_HNY,
 				platform: StakingPlatform.HONEYSWAP,
-				network: 100,
 				title: 'FOX / HNY',
 				description: '50% FOX, 50% HNY',
 				provideLiquidityLink:
